@@ -1,0 +1,220 @@
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="nav-container">
+    <a class="brand" href="#" aria-label="Cricket.io home"><img class="brand-logo" [src]="logoDark" alt="Cricket.io"></a>
+
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#turfs">Find Turfs</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#list-turf">List Your Turf</a>
+      <a href="#footer">About</a>
+    </div>
+
+    <div class="nav-actions">
+      <button type="button" class="login-btn">Login</button>
+      <button type="button" class="signup-btn">Sign Up</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+  <div class="hero-container">
+
+    <div class="hero-copy">
+      <span class="eyebrow">✦ BOOK · PLAY · LIVE CRICKET</span>
+
+      <h1>Find. Book. Play<br>Cricket <span>Anywhere.</span></h1>
+
+      <p class="hero-description">
+        Discover and book premium cricket turfs, indoor nets and sports facilities
+        in your city. Play with your squad, anytime.
+      </p>
+
+      <div class="search-box">
+        <div class="search-field">
+          <span class="search-icon">⌖</span>
+          <div>
+            <label>Location</label>
+            <select [(ngModel)]="selectedLocation">
+              <option *ngFor="let city of popularCities" [value]="city">{{ city }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="search-field">
+          <span class="search-icon">▦</span>
+          <div>
+            <label>Date</label>
+            <input type="date" [(ngModel)]="selectedDate">
+          </div>
+        </div>
+
+        <div class="search-field">
+          <span class="search-icon">♟</span>
+          <div>
+            <label>Players</label>
+            <select [(ngModel)]="players">
+              <option [ngValue]="6">6 Players</option>
+              <option [ngValue]="8">8 Players</option>
+              <option [ngValue]="10">10 Players</option>
+              <option [ngValue]="12">12 Players</option>
+              <option [ngValue]="16">16 Players</option>
+              <option [ngValue]="22">22 Players</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" class="search-btn" (click)="searchTurfs()">⌕ Search</button>
+      </div>
+
+      <div class="popular-cities">
+        <strong>Popular:</strong>
+        <button type="button" *ngFor="let city of popularCities"
+                (click)="selectCity(city)" [class.selected]="selectedLocation === city">{{ city }}</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200" alt="Cricket match on a turf ground">
+
+      <div class="float-card float-top">
+        <span class="float-icon">◉</span>
+        <div><strong>500+</strong><small>Verified Turfs</small></div>
+      </div>
+      <div class="float-card float-bottom">
+        <span class="float-icon">★</span>
+        <div><strong>4.8</strong><small>Average Rating</small></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATISTICS -->
+<section class="stats-section">
+  <div class="stats-container">
+    <div class="stat-item"><span>◉</span><div><strong>500+</strong><small>Verified Turfs</small></div></div>
+    <div class="stat-item"><span>♟</span><div><strong>10K+</strong><small>Active Players</small></div></div>
+    <div class="stat-item"><span>◎</span><div><strong>50+</strong><small>Cities</small></div></div>
+    <div class="stat-item"><span>♧</span><div><strong>100K+</strong><small>Successful Bookings</small></div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="features-container">
+    <div class="feature" *ngFor="let feature of features">
+      <div class="feature-icon">{{ feature.icon }}</div>
+      <div>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TURF LISTINGS -->
+<section class="turfs-section" id="turfs">
+  <div class="section-heading">
+    <div>
+      <span class="section-label">POPULAR NEAR YOU</span>
+      <h2>Top Cricket Turfs</h2>
+      <p>Explore the best cricket turfs with great facilities, easy booking and verified owners.</p>
+    </div>
+    <a href="#turfs" class="view-all">View All Turfs →</a>
+  </div>
+
+  <div class="turf-grid">
+    <article class="turf-card" *ngFor="let turf of turfs">
+      <div class="turf-image">
+        <img [src]="turf.image" [alt]="turf.name" loading="lazy" (error)="onImageError($event)">
+        <button type="button" class="favorite-btn" aria-label="Add to favorites">♡</button>
+        <div class="turf-rating">⭐ {{ turf.rating }} ({{ turf.reviews }})</div>
+      </div>
+
+      <div class="turf-info">
+        <h3>{{ turf.name }}</h3>
+        <p class="turf-location">📍 {{ turf.location }}</p>
+
+        <div class="price-row">
+          <strong>₹{{ turf.price | number }}</strong><span>/ hour</span>
+        </div>
+
+        <div class="turf-bottom">
+          <div class="amenities">
+            <span *ngFor="let amenity of turf.amenities">{{ amenity }}</span>
+          </div>
+          <button type="button" class="details-btn" (click)="viewTurf(turf.name)">View Details →</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- TURF OWNER CTA -->
+<section class="owner-section" id="list-turf">
+  <div class="owner-inner">
+    <div class="owner-content">
+      <span class="owner-label">OWN A CRICKET TURF?</span>
+      <h2>List Your Turf on Cricket.io</h2>
+      <p>Reach more players, manage bookings easily and grow your business.</p>
+    </div>
+
+    <div class="owner-benefits">
+      <span>✓ Get more players</span>
+      <span>✓ Manage bookings easily</span>
+      <span>✓ Grow your business</span>
+    </div>
+
+    <button type="button" class="owner-btn" (click)="listYourTurf()">List Your Turf →</button>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <span class="section-label">HOW IT WORKS</span>
+  <h2>Book Your Game in 3 Simple Steps</h2>
+
+  <div class="steps-grid">
+    <div class="how-step">
+      <div class="how-number">01</div>
+      <div class="how-icon">⌕</div>
+      <h3>Find a Turf</h3>
+      <p>Discover cricket turfs near you with real-time availability.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-number">02</div>
+      <div class="how-icon">▦</div>
+      <h3>Choose Your Slot</h3>
+      <p>Select your preferred date, time and confirm your booking.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-number">03</div>
+      <div class="how-icon">♟</div>
+      <h3>Play Cricket</h3>
+      <p>Gather your squad and enjoy the game!</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" id="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <a class="brand footer-logo" href="#" aria-label="Cricket.io home"><img class="brand-logo" [src]="logoLight" alt="Cricket.io"></a>
+      <p>Find your turf. Book your game. Play cricket.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#turfs">Find Turfs</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#list-turf">List Your Turf</a>
+      <a href="#">About</a>
+    </div>
+
+    <p class="copyright">© 2026 Cricket.io. All rights reserved.</p>
+  </div>
+</footer>

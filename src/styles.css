@@ -1,0 +1,49 @@
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+  --color-primary: #079c7b;
+  --color-primary-dark: #06765f;
+  --color-secondary: #102b40;
+  --color-accent: #a5ed63;
+  --color-background: #ffffff;
+  --color-surface: #f5fbf9;
+  --color-text: #102c35;
+  --color-muted: #718491;
+  --color-border: #e5eeea;
+
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+button {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: #b9f1df;
+  color: #102c35;
+}
