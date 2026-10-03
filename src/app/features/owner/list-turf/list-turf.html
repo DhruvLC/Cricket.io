@@ -1,1 +1,407 @@
-<p>list-turf works!</p>
+
+<div class="listing-page">
+
+  <!-- Header -->
+  <header class="listing-header">
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">🏏</span>
+      <span>Cricket<span class="brand-highlight">.io</span></span>
+    </a>
+
+    <div class="header-right">
+      <a routerLink="/owner/dashboard" class="dashboard-link">
+        Owner Dashboard
+      </a>
+      <div class="owner-avatar">O</div>
+    </div>
+  </header>
+
+  <main class="listing-container">
+
+    <!-- Page Introduction -->
+    <section class="page-heading">
+      <div class="heading-badge">
+        <span>✦</span> FOR TURF OWNERS
+      </div>
+
+      <h1>List Your <span>Turf</span></h1>
+
+      <p>
+        Bring your cricket ground online. Connect with players,
+        showcase your facilities and grow your business with Cricket.io.
+      </p>
+    </section>
+
+    <!-- Progress Card -->
+    <section class="progress-card">
+      <div class="progress-info">
+        <div>
+          <h3>Venue Registration</h3>
+          <p>Complete the details below to prepare your listing.</p>
+        </div>
+        <span class="progress-label">New Listing</span>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+    </section>
+
+    <form #turfForm="ngForm" (ngSubmit)="onSubmit()" class="listing-form">
+
+      <!-- 01 BASIC INFORMATION -->
+      <section class="form-card">
+        <div class="section-heading">
+          <div class="section-number">01</div>
+          <div>
+            <h2>Basic Information</h2>
+            <p>Tell players about your cricket venue.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group full-width">
+            <label for="turfName">Turf Name <span>*</span></label>
+            <input
+              id="turfName"
+              type="text"
+              name="name"
+              [(ngModel)]="listing.name"
+              placeholder="e.g. Elite Cricket Arena"
+              required
+              #turfName="ngModel"
+            />
+            <small class="error" *ngIf="turfName.invalid && turfName.touched">
+              Please enter your turf name.
+            </small>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="description">Turf Description <span>*</span></label>
+            <textarea
+              id="description"
+              name="description"
+              [(ngModel)]="listing.description"
+              placeholder="Describe your cricket ground, playing surface and facilities..."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="turfType">Turf Type <span>*</span></label>
+            <select
+              id="turfType"
+              name="turfType"
+              [(ngModel)]="listing.turfType"
+              required
+            >
+              <option value="Cricket">Cricket Turf</option>
+              <option value="Box Cricket">Box Cricket</option>
+            </select>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 02 LOCATION -->
+      <section class="form-card">
+        <div class="section-heading">
+          <div class="section-number">02</div>
+          <div>
+            <h2>Location Details</h2>
+            <p>Help players discover and reach your venue.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group full-width">
+            <label for="address">Full Address <span>*</span></label>
+            <textarea
+              id="address"
+              name="address"
+              [(ngModel)]="listing.address"
+              placeholder="Building, street name and nearby landmark"
+              rows="2"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="area">Area / Locality <span>*</span></label>
+            <input
+              id="area"
+              type="text"
+              name="area"
+              [(ngModel)]="listing.area"
+              placeholder="e.g. Hiranandani Estate"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="city">City <span>*</span></label>
+            <input
+              id="city"
+              type="text"
+              name="city"
+              [(ngModel)]="listing.city"
+              placeholder="e.g. Thane"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="pincode">PIN Code <span>*</span></label>
+            <input
+              id="pincode"
+              type="text"
+              name="pincode"
+              [(ngModel)]="listing.pincode"
+              placeholder="6-digit PIN code"
+              maxlength="6"
+              pattern="[0-9]{6}"
+              required
+            />
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 03 PRICING AND AVAILABILITY -->
+      <section class="form-card">
+        <div class="section-heading">
+          <div class="section-number">03</div>
+          <div>
+            <h2>Pricing & Availability</h2>
+            <p>Set your hourly price and operating schedule.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="price">Price Per Hour <span>*</span></label>
+            <div class="input-prefix">
+              <span>₹</span>
+              <input
+                id="price"
+                type="number"
+                name="price"
+                [(ngModel)]="listing.price"
+                placeholder="1200"
+                min="1"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="openingTime">Opening Time <span>*</span></label>
+            <input
+              id="openingTime"
+              type="time"
+              name="openingTime"
+              [(ngModel)]="listing.openingTime"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="closingTime">Closing Time <span>*</span></label>
+            <input
+              id="closingTime"
+              type="time"
+              name="closingTime"
+              [(ngModel)]="listing.closingTime"
+              required
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label>Available Days <span>*</span></label>
+            <p class="field-hint">Select the days your venue is open.</p>
+
+            <div class="selection-grid days-grid">
+              <button
+                type="button"
+                *ngFor="let day of availableDays"
+                class="selection-chip"
+                [class.selected]="selectedDays.includes(day)"
+                (click)="toggleDay(day)"
+              >
+                <span class="chip-check">
+                  {{ selectedDays.includes(day) ? '✓' : '+' }}
+                </span>
+                {{ day }}
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 04 AMENITIES -->
+      <section class="form-card">
+        <div class="section-heading">
+          <div class="section-number">04</div>
+          <div>
+            <h2>Facilities & Amenities</h2>
+            <p>Highlight the facilities available at your venue.</p>
+          </div>
+        </div>
+
+        <div class="selection-grid amenities-grid">
+          <button
+            type="button"
+            *ngFor="let amenity of amenities"
+            class="selection-chip amenity-chip"
+            [class.selected]="selectedAmenities.includes(amenity)"
+            (click)="toggleAmenity(amenity)"
+          >
+            <span class="chip-check">
+              {{ selectedAmenities.includes(amenity) ? '✓' : '+' }}
+            </span>
+            {{ amenity }}
+          </button>
+        </div>
+      </section>
+
+      <!-- 05 VENUE PHOTOS -->
+      <section class="form-card">
+        <div class="section-heading">
+          <div class="section-number">05</div>
+          <div>
+            <h2>Venue Photos</h2>
+            <p>Showcase your cricket ground with quality images.</p>
+          </div>
+        </div>
+
+        <label class="upload-area" for="turfImages">
+          <div class="upload-icon">↑</div>
+          <h3>Upload Turf Images</h3>
+          <p>Drag and drop or click to browse images</p>
+          <span>Maximum 5 images · JPG, PNG or WEBP</span>
+
+          <input
+            id="turfImages"
+            type="file"
+            accept="image/*"
+            multiple
+            (change)="onImagesSelected($event)"
+            hidden
+          />
+        </label>
+
+        <div class="image-preview-grid" *ngIf="selectedImages.length > 0">
+          <div
+            class="image-preview"
+            *ngFor="let image of selectedImages; let i = index"
+          >
+            <img [src]="image.url" [alt]="'Turf image ' + (i + 1)" />
+
+            <button
+              type="button"
+              class="remove-image"
+              (click)="removeImage(i)"
+              aria-label="Remove image"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+
+        <p class="image-count">
+          {{ selectedImages.length }} / 5 images selected
+        </p>
+      </section>
+
+      <!-- 06 CONTACT INFORMATION -->
+      <section class="form-card">
+        <div class="section-heading">
+          <div class="section-number">06</div>
+          <div>
+            <h2>Owner Contact Information</h2>
+            <p>Provide your contact details for venue communication.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="contactName">Owner Name <span>*</span></label>
+            <input
+              id="contactName"
+              type="text"
+              name="contactName"
+              [(ngModel)]="listing.contactName"
+              placeholder="Your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Mobile Number <span>*</span></label>
+            <input
+              id="phone"
+              type="tel"
+              name="phone"
+              [(ngModel)]="listing.phone"
+              placeholder="10-digit mobile number"
+              maxlength="10"
+              pattern="[0-9]{10}"
+              required
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="email">Email Address <span>*</span></label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              [(ngModel)]="listing.email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SUBMIT -->
+      <section class="submit-card">
+
+        <div class="submit-note">
+          <span class="info-icon">i</span>
+          <p>
+            Please review your information before proceeding.
+            Your listing will require backend integration before it can
+            be published on Cricket.io.
+          </p>
+        </div>
+
+        <button type="submit" class="submit-button">
+          Preview Turf Listing
+          <span>→</span>
+        </button>
+
+      </section>
+
+      <div class="success-message" *ngIf="formSubmitted">
+        Form action received locally. Backend submission and publishing
+        are not connected yet.
+      </div>
+
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="listing-footer">
+    <p>© 2026 Cricket.io. Built for the love of cricket.</p>
+    <a routerLink="/">Back to Home ↑</a>
+  </footer>
+
+</div>
