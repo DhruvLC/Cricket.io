@@ -1,12 +1,14 @@
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { LOGO_DARK, LOGO_LIGHT } from './logos';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -19,7 +21,7 @@ export class Home {
   selectedDate = '';
   players = 10;
 
-  // Used if any turf image fails to load (known-good cricket photo)
+  // Used if any turf image fails to load
   readonly fallbackImage =
     'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=700';
 
@@ -49,7 +51,6 @@ export class Home {
       rating: 4.7,
       reviews: 85,
       amenities: ['Indoor', 'Washroom', 'Parking'],
-      // Unsplash "A cricket stadium with empty stands and a clear sky" (zXhuzlcri7s)
       image: 'https://unsplash.com/photos/zXhuzlcri7s/download?force=true&w=700'
     },
     {
@@ -59,20 +60,46 @@ export class Home {
       rating: 4.5,
       reviews: 64,
       amenities: ['Practice Nets', 'Parking', 'Lighting'],
-      // Unsplash "A view of a cricket stadium from across the field" (h_-D1L3m6cg)
       image: 'https://unsplash.com/photos/h_-D1L3m6cg/download?force=true&w=700'
     }
   ];
 
   features = [
-    { icon: '⌕', title: 'Wide Selection', description: 'Explore verified turfs near you.' },
-    { icon: '⚡', title: 'Instant Booking', description: 'Real-time availability and easy booking.' },
-    { icon: '✓', title: 'Verified Turfs', description: 'Quality facilities with trusted owners.' },
-    { icon: '♧', title: 'Play with Friends', description: 'Create squads and manage bookings.' },
-    { icon: '🏆', title: 'For Every Cricketer', description: 'From casual games to tournaments.' }
+    {
+      icon: '⌕',
+      title: 'Wide Selection',
+      description: 'Explore verified turfs near you.'
+    },
+    {
+      icon: '⚡',
+      title: 'Instant Booking',
+      description: 'Real-time availability and easy booking.'
+    },
+    {
+      icon: '✓',
+      title: 'Verified Turfs',
+      description: 'Quality facilities with trusted owners.'
+    },
+    {
+      icon: '♧',
+      title: 'Play with Friends',
+      description: 'Create squads and manage bookings.'
+    },
+    {
+      icon: '🏆',
+      title: 'For Every Cricketer',
+      description: 'From casual games to tournaments.'
+    }
   ];
 
-  popularCities = ['Mumbai', 'Thane', 'Navi Mumbai', 'Pune', 'Bangalore', 'Delhi'];
+  popularCities = [
+    'Mumbai',
+    'Thane',
+    'Navi Mumbai',
+    'Pune',
+    'Bangalore',
+    'Delhi'
+  ];
 
   selectCity(city: string) {
     this.selectedLocation = city;
@@ -94,10 +121,14 @@ export class Home {
     console.log('Redirect to turf owner registration');
   }
 
-  // Swap a broken image for the fallback once (guard prevents a loop)
+  // Swap a broken image for the fallback once
   onImageError(event: Event) {
     const img = event.target as HTMLImageElement;
-    if (img.dataset['fallback']) return;
+
+    if (img.dataset['fallback']) {
+      return;
+    }
+
     img.dataset['fallback'] = '1';
     img.src = this.fallbackImage;
   }

@@ -1,1 +1,278 @@
-<p>signup works!</p>
+<div class="signup-page">
+
+  <!-- Left Visual Section -->
+  <section class="signup-visual">
+
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">C</span>
+      <span>Cricket<span class="brand-highlight">.io</span></span>
+    </a>
+
+    <div class="visual-content">
+      <span class="eyebrow">
+        <span class="live-dot"></span>
+        YOUR GAME. YOUR COMMUNITY.
+      </span>
+
+      <h1>
+        Every great<br>
+        game starts<br>
+        <span>with you.</span>
+      </h1>
+
+      <p>
+        Join Cricket.io and discover cricket turfs,
+        connect with players, and book your next game.
+      </p>
+
+      <div class="visual-stats">
+        <div>
+          <strong>01</strong>
+          <span>Create your account</span>
+        </div>
+
+        <div>
+          <strong>02</strong>
+          <span>Discover turfs</span>
+        </div>
+
+        <div>
+          <strong>03</strong>
+          <span>Play cricket</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="visual-footer">
+      <span>BUILT FOR THE LOVE OF CRICKET</span>
+      <span>© 2026 Cricket.io</span>
+    </div>
+
+  </section>
+
+
+  <!-- Right Signup Section -->
+  <section class="signup-form-section">
+
+    <div class="mobile-brand">
+      <a routerLink="/" class="brand">
+        <span class="brand-icon">C</span>
+        <span>Cricket<span class="brand-highlight">.io</span></span>
+      </a>
+    </div>
+
+    <div class="signup-card">
+
+      <div class="form-heading">
+        <span class="form-label">GET STARTED</span>
+        <h2>Create your account</h2>
+        <p>Join the community. Your next match is waiting.</p>
+      </div>
+
+
+      <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your full name"
+            [(ngModel)]="fullName"
+            required
+            minlength="3"
+            #nameField="ngModel"
+          >
+
+          <small class="field-error"
+            *ngIf="nameField.invalid && nameField.touched">
+            Please enter your name (minimum 3 characters).
+          </small>
+        </div>
+
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            [(ngModel)]="email"
+            required
+            email
+            #emailField="ngModel"
+          >
+
+          <small class="field-error"
+            *ngIf="emailField.invalid && emailField.touched">
+            Please enter a valid email address.
+          </small>
+        </div>
+
+
+        <!-- Mobile -->
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+
+          <input
+            type="tel"
+            id="mobile"
+            name="mobile"
+            placeholder="Enter 10-digit mobile number"
+            [(ngModel)]="mobile"
+            required
+            pattern="[0-9]{10}"
+            maxlength="10"
+            #mobileField="ngModel"
+          >
+
+          <small class="field-error"
+            *ngIf="mobileField.invalid && mobileField.touched">
+            Enter a valid 10-digit mobile number.
+          </small>
+        </div>
+
+
+        <!-- Account Type -->
+        <div class="form-group">
+          <label for="accountType">I want to join as</label>
+
+          <select
+            id="accountType"
+            name="accountType"
+            [(ngModel)]="accountType"
+            required
+          >
+            <option value="Player">Player</option>
+            <option value="Turf Owner">Turf Owner</option>
+          </select>
+        </div>
+
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              [(ngModel)]="password"
+              required
+              minlength="8"
+              #passwordField="ngModel"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showPassword = !showPassword"
+            >
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+
+          <small class="field-hint">Use at least 8 characters.</small>
+
+          <small class="field-error"
+            *ngIf="passwordField.invalid && passwordField.touched">
+            Password must contain at least 8 characters.
+          </small>
+        </div>
+
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+
+          <div class="password-wrapper">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Re-enter your password"
+              [(ngModel)]="confirmPassword"
+              required
+              #confirmField="ngModel"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showConfirmPassword = !showConfirmPassword"
+            >
+              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+
+          <small class="field-error"
+            *ngIf="confirmField.invalid && confirmField.touched">
+            Please confirm your password.
+          </small>
+        </div>
+
+
+        <!-- Terms -->
+        <div class="terms-row">
+          <input
+            type="checkbox"
+            id="terms"
+            name="acceptTerms"
+            [(ngModel)]="acceptTerms"
+            required
+          >
+
+          <label for="terms">
+            I agree to the
+            <a href="javascript:void(0)">Terms of Service</a>
+            and
+            <a href="javascript:void(0)">Privacy Policy</a>.
+          </label>
+        </div>
+
+
+        <!-- Messages -->
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+
+
+        <!-- Submit -->
+        <button type="submit" class="signup-submit">
+          Create Account
+          <span>→</span>
+        </button>
+
+      </form>
+
+
+      <div class="login-divider">
+        <span>ALREADY PART OF THE GAME?</span>
+      </div>
+
+      <p class="login-link">
+        Already have an account?
+        <a routerLink="/login">Login</a>
+      </p>
+
+      <a routerLink="/" class="back-home">
+        ← Back to homepage
+      </a>
+
+    </div>
+
+  </section>
+
+</div>
