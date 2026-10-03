@@ -1,1 +1,184 @@
-<p>bookings works!</p>
+
+<header class="bookings-header">
+  <div class="header-container">
+
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">🏏</span>
+      <span>Cricket<span class="brand-highlight">.io</span></span>
+    </a>
+
+    <nav class="header-actions">
+      <a routerLink="/" class="nav-link">Home</a>
+      <a routerLink="/turfs" class="nav-link">Explore Turfs</a>
+      <a routerLink="/profile" class="profile-link">My Profile</a>
+    </nav>
+
+  </div>
+</header>
+
+<main class="bookings-page">
+
+  <section class="page-heading">
+    <div>
+      <span class="eyebrow">YOUR CRICKET JOURNEY</span>
+      <h1>My <span>Bookings</span></h1>
+      <p>Manage your cricket sessions and keep track of your reservations.</p>
+    </div>
+
+    <a routerLink="/turfs" class="explore-button">
+      + Book a Turf
+    </a>
+  </section>
+
+  <!-- Booking Statistics -->
+  <section class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon">🏏</div>
+      <div>
+        <p>Total Bookings</p>
+        <h2>{{ totalBookings }}</h2>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon upcoming-icon">📅</div>
+      <div>
+        <p>Upcoming Sessions</p>
+        <h2>{{ upcomingBookings }}</h2>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon spent-icon">₹</div>
+      <div>
+        <p>Total Booking Amount</p>
+        <h2>₹{{ totalSpent | number }}</h2>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Booking List -->
+  <section class="booking-list-section">
+
+    <div class="list-heading">
+      <div>
+        <h2>Your Reservations</h2>
+        <p>All your booked cricket sessions in one place.</p>
+      </div>
+
+      <span class="booking-count">
+        {{ totalBookings }} Bookings
+      </span>
+    </div>
+
+    <div *ngIf="bookings.length > 0; else emptyState"
+         class="booking-list">
+
+      <article
+        class="booking-card"
+        *ngFor="let booking of bookings; trackBy: trackByBooking">
+
+        <div class="booking-card-top">
+
+          <div class="venue-icon">🏏</div>
+
+          <div class="venue-info">
+            <h3>{{ booking.turfName }}</h3>
+            <p>📍 {{ booking.location }}</p>
+            <span class="reference">
+              Ref: {{ booking.bookingReference }}
+            </span>
+          </div>
+
+          <span
+            class="status-badge"
+            [class.upcoming]="isUpcoming(booking)"
+            [class.completed]="!isUpcoming(booking) && booking.status !== 'Cancelled'"
+            [class.cancelled]="booking.status === 'Cancelled'">
+
+            {{ booking.status === 'Cancelled'
+                ? 'Cancelled'
+                : isUpcoming(booking)
+                  ? 'Upcoming'
+                  : 'Completed' }}
+
+          </span>
+
+        </div>
+
+        <div class="booking-details-grid">
+
+          <div class="detail-item">
+            <span class="detail-label">Booking Date</span>
+            <strong>{{ booking.date | date:'dd MMM yyyy' }}</strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Starting Time</span>
+            <strong>{{ booking.time }}</strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Duration</span>
+            <strong>{{ booking.duration }} Hour(s)</strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Players</span>
+            <strong>{{ booking.players }} Players</strong>
+          </div>
+
+        </div>
+
+        <div class="booking-card-footer">
+
+          <div>
+            <span class="amount-label">Total Amount</span>
+            <strong class="amount">
+              ₹{{ booking.totalAmount | number }}
+            </strong>
+          </div>
+
+          <a
+            [routerLink]="['/turf', booking.turfId]"
+            class="details-button">
+            View Turf Details →
+          </a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <!-- Empty State -->
+    <ng-template #emptyState>
+
+      <div class="empty-state">
+
+        <div class="empty-icon">🏏</div>
+
+        <h2>No Bookings Yet</h2>
+
+        <p>
+          You haven't booked any cricket turfs yet.
+          Find your favourite venue and get your game started!
+        </p>
+
+        <a routerLink="/turfs" class="explore-button">
+          Explore Cricket Turfs →
+        </a>
+
+      </div>
+
+    </ng-template>
+
+  </section>
+
+</main>
+
+<footer class="bookings-footer">
+  <p>© 2026 Cricket.io. Built for the love of cricket. 🏏</p>
+</footer>

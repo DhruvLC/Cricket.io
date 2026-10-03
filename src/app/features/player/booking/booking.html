@@ -1,1 +1,311 @@
-<p>booking works!</p>
+<header class="booking-header">
+  <div class="header-container">
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">🏏</span>
+      <span>Cricket<span class="brand-highlight">.io</span></span>
+    </a>
+
+    <a routerLink="/turfs" class="back-link">
+      ← Explore Turfs
+    </a>
+  </div>
+</header>
+
+<main class="booking-page">
+
+  <section class="page-heading">
+    <span class="eyebrow">SECURE YOUR GAME</span>
+    <h1>Complete Your <span>Booking</span></h1>
+    <p>Just a few details between you and your next cricket match.</p>
+  </section>
+
+  <div class="booking-layout">
+
+    <div class="booking-main">
+
+      <!-- Turf Information -->
+      <section class="booking-card turf-card">
+        <div class="section-heading">
+          <div class="step-number">01</div>
+          <div>
+            <h2>Your Selected Turf</h2>
+            <p>Review your venue before booking.</p>
+          </div>
+        </div>
+
+        <div class="turf-information">
+          <div class="turf-icon">🏏</div>
+
+          <div class="turf-details">
+            <h3>{{ turf.name }}</h3>
+            <p>📍 {{ turf.location }}</p>
+            <div class="rating">★ {{ turf.rating }} <span>Cricket Turf</span></div>
+          </div>
+
+          <div class="turf-price">
+            <strong>₹{{ turf.price | number }}</strong>
+            <span>/ hour</span>
+          </div>
+        </div>
+
+        <button type="button" class="change-turf" (click)="goToTurf()">
+          View Turf Details →
+        </button>
+      </section>
+
+      <!-- Date Selection -->
+      <section class="booking-card">
+        <div class="section-heading">
+          <div class="step-number">02</div>
+          <div>
+            <h2>Select Date & Time</h2>
+            <p>Choose when you want to play.</p>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="bookingDate">Booking Date <span>*</span></label>
+
+          <input
+            id="bookingDate"
+            type="date"
+            [(ngModel)]="selectedDate"
+            [min]="today"
+            name="bookingDate"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label>Available Time Slots <span>*</span></label>
+          <p class="field-hint">Select your preferred starting time.</p>
+
+          <div class="time-grid">
+            <button
+              type="button"
+              *ngFor="let slot of timeSlots"
+              class="time-slot"
+              [class.selected]="selectedTime === slot"
+              (click)="selectTime(slot)"
+            >
+              {{ slot }}
+            </button>
+          </div>
+
+          <p class="selection-hint" *ngIf="selectedTime">
+            <span>✓</span> Selected: {{ selectedTime }}
+          </p>
+        </div>
+
+        <div class="field-group">
+          <label>Playing Duration</label>
+
+          <div class="duration-options">
+            <button
+              type="button"
+              *ngFor="let duration of [1, 2, 3, 4]"
+              [class.selected]="selectedDuration === duration"
+              (click)="selectDuration(duration)"
+            >
+              {{ duration }} {{ duration === 1 ? 'Hour' : 'Hours' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="players">Number of Players</label>
+
+          <select id="players" name="players" [(ngModel)]="players">
+            <option [ngValue]="2">2 Players</option>
+            <option [ngValue]="4">4 Players</option>
+            <option [ngValue]="6">6 Players</option>
+            <option [ngValue]="8">8 Players</option>
+            <option [ngValue]="10">10 Players</option>
+            <option [ngValue]="12">12 Players</option>
+            <option [ngValue]="14">14 Players</option>
+            <option [ngValue]="16">16 Players</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Customer Details -->
+      <section class="booking-card">
+        <div class="section-heading">
+          <div class="step-number">03</div>
+          <div>
+            <h2>Contact Information</h2>
+            <p>Enter your details for booking communication.</p>
+          </div>
+        </div>
+
+        <form #bookingForm="ngForm" (ngSubmit)="onConfirm()">
+
+          <div class="field-group">
+            <label for="customerName">Full Name <span>*</span></label>
+
+            <input
+              id="customerName"
+              type="text"
+              name="customerName"
+              [(ngModel)]="customer.name"
+              placeholder="Enter your full name"
+              required
+              minlength="2"
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="customerPhone">Mobile Number <span>*</span></label>
+
+            <input
+              id="customerPhone"
+              type="tel"
+              name="customerPhone"
+              [(ngModel)]="customer.phone"
+              placeholder="10-digit mobile number"
+              pattern="[6-9][0-9]{9}"
+              maxlength="10"
+              required
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="customerEmail">Email Address <span>*</span></label>
+
+            <input
+              id="customerEmail"
+              type="email"
+              name="customerEmail"
+              [(ngModel)]="customer.email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="confirm-button"
+            [disabled]="bookingConfirmed"
+          >
+            Confirm Booking · ₹{{ totalAmount | number }}
+            <span>→</span>
+          </button>
+
+          <p class="secure-note">
+            🔒 Your details are used for this booking demonstration.
+          </p>
+
+        </form>
+      </section>
+
+    </div>
+
+    <!-- Booking Summary -->
+    <aside class="booking-sidebar">
+
+      <div class="summary-card">
+        <div class="summary-heading">
+          <h2>Booking Summary</h2>
+          <span class="summary-icon">🏏</span>
+        </div>
+
+        <div class="summary-turf">
+          <span>SELECTED VENUE</span>
+          <h3>{{ turf.name }}</h3>
+          <p>{{ turf.location }}</p>
+        </div>
+
+        <div class="summary-line">
+          <span>Date</span>
+          <strong>{{ selectedDate || 'Not selected' }}</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>Starting Time</span>
+          <strong>{{ selectedTime || 'Not selected' }}</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>Duration</span>
+          <strong>{{ selectedDuration }} hour(s)</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>Players</span>
+          <strong>{{ players }}</strong>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-line">
+          <span>Venue Charges</span>
+          <strong>₹{{ subtotal | number }}</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>Platform Fee (2%)</span>
+          <strong>₹{{ platformFee | number }}</strong>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="total-line">
+          <span>Total Amount</span>
+          <strong>₹{{ totalAmount | number }}</strong>
+        </div>
+
+        <div class="summary-footer">
+          <span>✓</span>
+          Transparent pricing with no hidden charges.
+        </div>
+      </div>
+
+      <div class="help-card">
+        <span>Need assistance?</span>
+        <p>Have questions about your booking? Contact our support team.</p>
+        <a href="mailto:support@cricket.io">Contact Support →</a>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Confirmation Screen -->
+  <section class="confirmation-section" *ngIf="bookingConfirmed">
+
+    <div class="success-icon">✓</div>
+
+    <span class="eyebrow">BOOKING REQUEST CREATED</span>
+
+    <h2>Your Booking Details Are Ready!</h2>
+
+    <p>
+      Thank you, {{ customer.name }}. Your booking reference is:
+    </p>
+
+    <div class="reference-number">
+      {{ bookingReference }}
+    </div>
+
+    <div class="confirmation-details">
+      <p><strong>Venue:</strong> {{ turf.name }}</p>
+      <p><strong>Date:</strong> {{ selectedDate }}</p>
+      <p><strong>Time:</strong> {{ selectedTime }}</p>
+      <p><strong>Duration:</strong> {{ selectedDuration }} hour(s)</p>
+      <p><strong>Total:</strong> ₹{{ totalAmount | number }}</p>
+    </div>
+
+    <p class="demo-notice">
+      This is a frontend demonstration. No actual reservation or payment
+      has been processed.
+    </p>
+
+    <a routerLink="/" class="home-button">Back to Home</a>
+
+  </section>
+
+</main>
+
+<footer class="booking-footer">
+  <p>© 2026 Cricket.io. Built for the love of cricket. 🏏</p>
+</footer>
