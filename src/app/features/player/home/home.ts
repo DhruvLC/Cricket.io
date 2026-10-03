@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LOGO_DARK, LOGO_LIGHT } from './logos';
 
 @Component({
@@ -14,6 +14,8 @@ import { LOGO_DARK, LOGO_LIGHT } from './logos';
 })
 export class Home {
 
+  constructor(private router: Router) {}
+
   readonly logoDark = LOGO_DARK;
   readonly logoLight = LOGO_LIGHT;
 
@@ -21,46 +23,51 @@ export class Home {
   selectedDate = '';
   players = 10;
 
-  // Used if any turf image fails to load
+  // Fallback image if a turf image fails to load
   readonly fallbackImage =
     'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=700';
 
+  // Same four cricket venues as the Explore Turfs page
   turfs = [
     {
-      name: 'Game On Turf',
-      location: 'Thane West, Mumbai',
+      id: 1,
+      name: 'Elite Cricket Arena',
+      location: 'Hiranandani Estate, Thane',
       price: 1200,
       rating: 4.8,
-      reviews: 120,
-      amenities: ['Floodlights', 'Parking', 'Washroom'],
-      image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=700'
+      reviews: 124,
+      amenities: ['Floodlights', 'Parking', 'Changing Room'],
+      image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1000&q=85'
     },
     {
-      name: 'Skyline Cricket Arena',
-      location: 'Navi Mumbai',
-      price: 1000,
-      rating: 4.6,
-      reviews: 98,
-      amenities: ['Night Play', 'Parking', 'Changing Room'],
-      image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=700'
-    },
-    {
-      name: 'ProTurf Indoor',
-      location: 'Thane',
-      price: 1500,
-      rating: 4.7,
-      reviews: 85,
-      amenities: ['Indoor', 'Washroom', 'Parking'],
-      image: 'https://unsplash.com/photos/zXhuzlcri7s/download?force=true&w=700'
-    },
-    {
-      name: 'Cricket Zone',
-      location: 'Kharghar, Navi Mumbai',
+      id: 3,
+      name: 'PlayZone Box Cricket',
+      location: 'Manpada, Thane',
       price: 900,
-      rating: 4.5,
-      reviews: 64,
-      amenities: ['Practice Nets', 'Parking', 'Lighting'],
-      image: 'https://unsplash.com/photos/h_-D1L3m6cg/download?force=true&w=700'
+      rating: 4.6,
+      reviews: 76,
+      amenities: ['Floodlights', 'Changing Room'],
+      image: 'https://images.unsplash.com/photo-1593766827228-8737b4cd1472?w=1000&q=85'
+    },
+    {
+      id: 4,
+      name: 'Champions Sports Arena',
+      location: 'Vashi, Navi Mumbai',
+      price: 1800,
+      rating: 4.9,
+      reviews: 156,
+      amenities: ['Floodlights', 'Parking', 'Cafeteria'],
+      image: 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=1000&q=85'
+    },
+    {
+      id: 6,
+      name: 'PowerPlay Cricket Ground',
+      location: 'Boisar, Palghar',
+      price: 800,
+      rating: 4.4,
+      reviews: 42,
+      amenities: ['Parking', 'Floodlights'],
+      image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1000&q=85'
     }
   ];
 
@@ -68,7 +75,7 @@ export class Home {
     {
       icon: '⌕',
       title: 'Wide Selection',
-      description: 'Explore verified turfs near you.'
+      description: 'Explore verified cricket turfs near you.'
     },
     {
       icon: '⚡',
@@ -101,28 +108,33 @@ export class Home {
     'Delhi'
   ];
 
-  selectCity(city: string) {
+  selectCity(city: string): void {
     this.selectedLocation = city;
   }
 
-  searchTurfs() {
-    console.log('Searching turfs:', {
-      location: this.selectedLocation,
-      date: this.selectedDate,
-      players: this.players
+  // Search and navigate to Explore Turfs
+  searchTurfs(): void {
+    this.router.navigate(['/turfs'], {
+      queryParams: {
+        location: this.selectedLocation,
+        date: this.selectedDate || null,
+        players: this.players
+      }
     });
   }
 
-  viewTurf(turfName: string) {
-    console.log('Viewing turf:', turfName);
+  // Navigate to the selected turf's details page
+  viewTurf(turfId: number): void {
+    this.router.navigate(['/turf', turfId]);
   }
 
-  listYourTurf() {
-    console.log('Redirect to turf owner registration');
+  // Navigate to Turf Owner listing page
+  listYourTurf(): void {
+    this.router.navigate(['/owner/list-turf']);
   }
 
-  // Swap a broken image for the fallback once
-  onImageError(event: Event) {
+  // Replace a broken image with the fallback image
+  onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
 
     if (img.dataset['fallback']) {

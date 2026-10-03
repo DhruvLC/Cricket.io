@@ -1,0 +1,926 @@
+
+/* =========================================
+   CRICKET.IO — TURF LISTING PAGE
+   Compact, centered desktop layout
+========================================= */
+
+:host {
+  display: block;
+  min-height: 100%;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #17291e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.turfs-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7faf8;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.turfs-header {
+  width: 100%;
+  height: 76px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eee9;
+}
+
+.header-inner {
+  width: min(1180px, calc(100% - 64px));
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #14271c;
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: -0.8px;
+  white-space: nowrap;
+}
+
+.brand-icon {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #19a65c;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.brand-highlight {
+  color: #19a65c;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header-nav a {
+  color: #718078;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 650;
+  transition: color 0.2s ease;
+}
+
+.header-nav a:hover,
+.header-nav a.active {
+  color: #169b55;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-login {
+  color: #35483c;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header-signup {
+  padding: 11px 17px;
+  border-radius: 7px;
+  background: #169e57;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 750;
+  transition: background 0.2s ease;
+}
+
+.header-signup:hover {
+  background: #0d8245;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.turfs-hero {
+  min-height: 355px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 48px 32px;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 29, 21, 0.94),
+      rgba(3, 38, 25, 0.72)
+    ),
+    url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1800&q=90')
+    center 48% / cover no-repeat;
+}
+
+.hero-content {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #c9ead6;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.hero-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #42dc89;
+  box-shadow: 0 0 9px rgba(66, 220, 137, 0.6);
+}
+
+.hero-content h1 {
+  margin: 20px 0 14px;
+  font-size: clamp(40px, 4vw, 53px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  font-weight: 850;
+}
+
+.hero-content h1 span {
+  color: #48d98b;
+}
+
+.hero-content p {
+  max-width: 510px;
+  margin: 0;
+  color: #d0e0d6;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 28px;
+}
+
+.hero-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hero-stats strong {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.hero-stats span {
+  color: #b8cec0;
+  font-size: 10px;
+}
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.turfs-main {
+  width: min(1180px, calc(100% - 64px));
+  flex: 1;
+  margin: 0 auto;
+  padding: 48px 0 60px;
+}
+
+.page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 23px;
+}
+
+.section-label {
+  color: #199d58;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.8px;
+}
+
+.page-heading h2 {
+  margin: 9px 0 7px;
+  color: #17291e;
+  font-size: 28px;
+  font-weight: 850;
+  letter-spacing: -0.8px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #829087;
+  font-size: 12px;
+}
+
+.result-count {
+  padding: 9px 13px;
+  border-radius: 7px;
+  background: #e9f7ef;
+  color: #168d4d;
+  font-size: 11px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+/* =========================================
+   FILTER PANEL
+========================================= */
+
+.filter-panel {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr auto;
+  align-items: end;
+  gap: 14px;
+  padding: 17px;
+  border: 1px solid #e7eee9;
+  border-radius: 11px;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(25, 60, 38, 0.035);
+}
+
+.search-field {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 13px;
+  border: 1px solid #e1e9e3;
+  border-radius: 7px;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-field:focus-within {
+  border-color: #1ba45d;
+  box-shadow: 0 0 0 3px rgba(27, 164, 93, 0.08);
+}
+
+.search-icon {
+  color: #1b9b57;
+  font-size: 21px;
+}
+
+.search-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #27392e;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.search-field input::placeholder {
+  color: #a0aaa3;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.filter-field label {
+  color: #6d7a71;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.filter-field select,
+.sort-field select {
+  width: 100%;
+  height: 46px;
+  padding: 0 11px;
+  border: 1px solid #e1e9e3;
+  border-radius: 7px;
+  outline: none;
+  background: #ffffff;
+  color: #27392e;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filter-field select:focus,
+.sort-field select:focus {
+  border-color: #1ba45d;
+}
+
+.clear-filters {
+  height: 46px;
+  padding: 0 15px;
+  border: 1px solid #dcebe1;
+  border-radius: 7px;
+  background: #f2faf5;
+  color: #168c4c;
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.clear-filters:hover {
+  background: #e5f5eb;
+}
+
+/* =========================================
+   RESULTS TOOLBAR
+========================================= */
+
+.results-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin: 34px 0 20px;
+}
+
+.results-toolbar h3 {
+  margin: 0 0 6px;
+  color: #1b2d22;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.results-toolbar p {
+  margin: 0;
+  color: #8a968e;
+  font-size: 11px;
+}
+
+.sort-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-field label {
+  color: #7e8b82;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.sort-field select {
+  width: 165px;
+  height: 39px;
+}
+
+/* =========================================
+   TURF GRID
+========================================= */
+
+.turf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 21px;
+}
+
+.turf-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e8eee9;
+  border-radius: 11px;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(28, 58, 39, 0.035);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.turf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(28, 58, 39, 0.09);
+}
+
+.turf-image {
+  position: relative;
+  height: 185px;
+  overflow: hidden;
+  background: #dce9df;
+}
+
+.turf-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.turf-card:hover .turf-image img {
+  transform: scale(1.045);
+}
+
+.turf-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #168d4d;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 11px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: #5f7165;
+  font-size: 21px;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.08);
+}
+
+.favorite-btn.favorited {
+  color: #e34d5b;
+}
+
+.availability {
+  position: absolute;
+  right: 11px;
+  bottom: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 5px;
+  background: rgba(7, 39, 25, 0.88);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.availability span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4de18c;
+}
+
+.availability.unavailable {
+  background: rgba(55, 43, 38, 0.9);
+}
+
+.availability.unavailable span {
+  background: #f1a06e;
+}
+
+/* =========================================
+   TURF INFORMATION
+========================================= */
+
+.turf-info {
+  padding: 17px;
+}
+
+.turf-category {
+  color: #179c56;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.turf-info h3 {
+  margin: 8px 0 7px;
+  color: #1b2d22;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.turf-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #859188;
+  font-size: 11px;
+}
+
+.turf-location span {
+  color: #1c9c58;
+  font-size: 16px;
+}
+
+.turf-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-size: 11px;
+}
+
+.star {
+  color: #efa92f;
+  font-size: 14px;
+}
+
+.turf-rating strong {
+  color: #26382d;
+}
+
+.turf-rating > span:last-child {
+  color: #9aa49d;
+}
+
+.amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0;
+}
+
+.amenities span {
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: #f0f6f2;
+  color: #63746a;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.turf-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  padding-top: 14px;
+  border-top: 1px solid #edf1ee;
+}
+
+.turf-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.turf-price strong {
+  color: #159852;
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.turf-price span {
+  color: #8b978e;
+  font-size: 10px;
+}
+
+.view-turf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #159d57;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 750;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.view-turf-btn:hover {
+  background: #0d8045;
+}
+
+.view-turf-btn span {
+  font-size: 14px;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+  padding: 65px 20px;
+  text-align: center;
+  border: 1px dashed #dce8df;
+  border-radius: 11px;
+  background: #ffffff;
+}
+
+.empty-icon {
+  color: #1a9b57;
+  font-size: 38px;
+}
+
+.empty-state h3 {
+  margin: 12px 0 7px;
+  color: #203328;
+  font-size: 19px;
+}
+
+.empty-state p {
+  color: #859188;
+  font-size: 12px;
+}
+
+.empty-state button {
+  margin-top: 11px;
+  padding: 11px 17px;
+  border: 0;
+  border-radius: 7px;
+  background: #159d57;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.turfs-footer {
+  width: 100%;
+  flex-shrink: 0;
+  padding: 25px 0;
+  background: #08271b;
+  color: #ffffff;
+}
+
+.footer-inner {
+  width: min(1180px, calc(100% - 64px));
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.footer-brand {
+  color: #ffffff;
+  font-size: 19px;
+}
+
+.footer-brand .brand-icon {
+  width: 31px;
+  height: 31px;
+  font-size: 17px;
+}
+
+.footer-inner p,
+.footer-inner > span {
+  margin: 0;
+  color: #a9c0b1;
+  font-size: 10px;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .header-nav {
+    gap: 16px;
+  }
+
+  .header-inner {
+    width: calc(100% - 40px);
+  }
+
+  .filter-panel {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .clear-filters {
+    grid-column: 1 / -1;
+  }
+
+  .turfs-main {
+    width: calc(100% - 40px);
+  }
+
+  .turf-grid {
+    gap: 16px;
+  }
+
+  .turf-image {
+    height: 165px;
+  }
+
+  .turf-info {
+    padding: 14px;
+  }
+
+  .footer-inner {
+    width: calc(100% - 40px);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 760px) {
+  .turfs-header {
+    height: 66px;
+  }
+
+  .header-inner {
+    width: calc(100% - 32px);
+    gap: 10px;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 12px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+
+  .brand-icon {
+    width: 31px;
+    height: 31px;
+  }
+
+  .header-login {
+    font-size: 11px;
+  }
+
+  .header-signup {
+    padding: 9px 12px;
+    font-size: 10px;
+  }
+
+  .turfs-hero {
+    min-height: 320px;
+    padding: 42px 22px;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+
+  .hero-content p {
+    font-size: 12px;
+  }
+
+  .hero-stats {
+    gap: 23px;
+  }
+
+  .hero-stats strong {
+    font-size: 16px;
+  }
+
+  .hero-stats span {
+    font-size: 9px;
+  }
+
+  .turfs-main {
+    width: calc(100% - 36px);
+    padding: 40px 0 55px;
+  }
+
+  .filter-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .search-field,
+  .clear-filters {
+    grid-column: 1 / -1;
+  }
+
+  .turf-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .turf-image {
+    height: 155px;
+  }
+
+  .footer-inner {
+    width: calc(100% - 36px);
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 520px) {
+  .turfs-hero {
+    min-height: 300px;
+  }
+
+  .hero-content h1 {
+    font-size: 35px;
+    letter-spacing: -1.5px;
+  }
+
+  .hero-stats {
+    gap: 17px;
+  }
+
+  .hero-stats strong {
+    font-size: 15px;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .page-heading h2 {
+    font-size: 25px;
+  }
+
+  .filter-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .search-field,
+  .clear-filters {
+    grid-column: auto;
+  }
+
+  .results-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sort-field {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sort-field select {
+    flex: 1;
+  }
+
+  .turf-grid {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .turf-image {
+    height: 205px;
+  }
+
+  .turf-info {
+    padding: 16px;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

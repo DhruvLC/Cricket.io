@@ -1,1 +1,229 @@
-<p>turf-details works!</p>
+
+<div class="details-page">
+
+  <!-- Navigation -->
+  <header class="details-header">
+    <div class="header-inner">
+      <a routerLink="/" class="brand">
+        <span class="brand-icon">C</span>
+        <span>Cricket<span class="brand-highlight">.io</span></span>
+      </a>
+
+      <nav class="header-nav">
+        <a routerLink="/">Home</a>
+        <a routerLink="/turfs" class="active">Explore Turfs</a>
+        <a routerLink="/my-bookings">My Bookings</a>
+        <a routerLink="/favorites">Favorites</a>
+      </nav>
+
+      <div class="header-actions">
+        <a routerLink="/login" class="header-login">Login</a>
+        <a routerLink="/signup" class="header-signup">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="details-main">
+
+    <!-- Back Navigation -->
+    <a routerLink="/turfs" class="back-link">
+      ← Back to Explore Turfs
+    </a>
+
+    <!-- Turf Found -->
+    <ng-container *ngIf="turf; else notFound">
+
+      <!-- Page Heading -->
+      <section class="details-heading">
+        <div>
+          <span class="section-label">{{ turf.sport }} VENUE</span>
+          <h1>{{ turf.name }}</h1>
+
+          <div class="heading-meta">
+            <span>⌖ {{ turf.location }}, {{ turf.city }}</span>
+            <span class="rating">
+              ★ {{ turf.rating }}
+              <span>({{ turf.reviews }} reviews)</span>
+            </span>
+          </div>
+        </div>
+
+        <span class="availability-badge" [class.unavailable]="!turf.available">
+          <span></span>
+          {{ turf.available ? 'Available for Booking' : 'Currently Unavailable' }}
+        </span>
+      </section>
+
+      <!-- Image Gallery -->
+      <section class="gallery">
+        <div class="main-image">
+          <img [src]="selectedImage" [alt]="turf.name">
+          <span class="image-label">GROUND GALLERY</span>
+        </div>
+
+        <div class="thumbnail-list">
+          <button
+            type="button"
+            *ngFor="let image of turf.images; let i = index"
+            [class.selected]="selectedImage === image"
+            (click)="selectImage(image)"
+          >
+            <img [src]="image" [alt]="turf.name + ' view ' + (i + 1)">
+          </button>
+        </div>
+      </section>
+
+      <!-- Details and Booking -->
+      <div class="details-layout">
+
+        <!-- Left Content -->
+        <div class="details-content">
+
+          <section class="info-card about-card">
+            <span class="section-label">ABOUT THE VENUE</span>
+            <h2>About this ground</h2>
+            <p>{{ turf.description }}</p>
+
+            <div class="quick-facts">
+              <div>
+                <span class="fact-icon">🏏</span>
+                <div>
+                  <strong>{{ turf.sport }}</strong>
+                  <span>Sport type</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="fact-icon">📍</span>
+                <div>
+                  <strong>{{ turf.city }}</strong>
+                  <span>Location</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="fact-icon">⭐</span>
+                <div>
+                  <strong>{{ turf.rating }}/5</strong>
+                  <span>Venue rating</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="info-card amenities-card">
+            <span class="section-label">FACILITIES</span>
+            <h2>Ground amenities</h2>
+
+            <div class="amenities-grid">
+              <div class="amenity-item" *ngFor="let amenity of turf.amenities">
+                <span class="amenity-check">✓</span>
+                {{ amenity }}
+              </div>
+            </div>
+          </section>
+
+          <section class="info-card location-card">
+            <span class="section-label">LOCATION</span>
+            <h2>Where you'll play</h2>
+
+            <div class="location-display">
+              <span class="location-icon">⌖</span>
+              <div>
+                <strong>{{ turf.location }}</strong>
+                <p>{{ turf.city }}, Maharashtra</p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Booking Panel -->
+        <aside class="booking-card">
+
+          <span class="section-label">RESERVE YOUR SLOT</span>
+          <h2>Book this turf</h2>
+
+          <div class="booking-price">
+            <strong>₹{{ turf.price | number }}</strong>
+            <span>/ hour</span>
+          </div>
+
+          <div class="booking-divider"></div>
+
+          <div class="booking-field">
+            <label for="bookingDate">Select your date</label>
+            <input
+              id="bookingDate"
+              type="date"
+              [min]="minDate"
+              [(ngModel)]="selectedDate"
+            >
+          </div>
+
+          <div class="booking-field">
+            <label>Available time slots</label>
+
+            <div class="slots-grid">
+              <button
+                type="button"
+                *ngFor="let slot of timeSlots"
+                [class.selected]="selectedSlot === slot"
+                (click)="selectSlot(slot)"
+              >
+                {{ slot }}
+              </button>
+            </div>
+          </div>
+
+          <div class="selection-summary" *ngIf="selectedSlot">
+            <span>Selected time</span>
+            <strong>{{ selectedSlot }}</strong>
+          </div>
+
+          <button
+            type="button"
+            class="book-now-btn"
+            [disabled]="!selectedDate || !selectedSlot || !turf.available"
+            (click)="bookNow()"
+          >
+            Continue to Booking <span>→</span>
+          </button>
+
+          <p class="booking-note">
+            Select your preferred date and time to continue.
+          </p>
+
+        </aside>
+
+      </div>
+
+    </ng-container>
+
+    <!-- Turf Not Found -->
+    <ng-template #notFound>
+      <div class="not-found">
+        <div class="not-found-icon">🏏</div>
+        <h2>Turf not found</h2>
+        <p>We couldn't find this venue. Explore our available cricket grounds.</p>
+        <a routerLink="/turfs">Explore Turfs →</a>
+      </div>
+    </ng-template>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="details-footer">
+    <div class="footer-inner">
+      <a routerLink="/" class="brand footer-brand">
+        <span class="brand-icon">C</span>
+        <span>Cricket<span class="brand-highlight">.io</span></span>
+      </a>
+
+      <p>Find your ground. Bring your team. Play your game.</p>
+
+      <span>© 2026 Cricket.io. All rights reserved.</span>
+    </div>
+  </footer>
+
+</div>

@@ -1,1 +1,241 @@
-<p>turfs works!</p>
+
+<div class="turfs-page">
+
+  <!-- Header -->
+  <header class="turfs-header">
+    <div class="header-inner">
+      <a routerLink="/" class="brand">
+        <span class="brand-icon">C</span>
+        <span>Cricket<span class="brand-highlight">.io</span></span>
+      </a>
+
+      <nav class="header-nav">
+        <a routerLink="/">Home</a>
+        <a routerLink="/turfs" class="active">Explore Turfs</a>
+        <a routerLink="/my-bookings">My Bookings</a>
+        <a routerLink="/favorites">Favorites</a>
+      </nav>
+
+      <div class="header-actions">
+        <a routerLink="/login" class="header-login">Login</a>
+        <a routerLink="/signup" class="header-signup">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Hero -->
+  <section class="turfs-hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">
+        <span class="hero-dot"></span>
+        FIND YOUR GAME
+      </span>
+
+      <h1>
+        Discover your next<br>
+        <span>playing ground.</span>
+      </h1>
+
+      <p>
+        Explore premium cricket and sports turfs near you.
+        Find your perfect ground and get ready to play.
+      </p>
+
+      <div class="hero-stats">
+        <div>
+          <strong>100+</strong>
+          <span>Sports Venues</span>
+        </div>
+        <div>
+          <strong>4.8/5</strong>
+          <span>Average Rating</span>
+        </div>
+        <div>
+          <strong>24/7</strong>
+          <span>Easy Booking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Main Content -->
+  <main class="turfs-main">
+
+    <div class="page-heading">
+      <div>
+        <span class="section-label">EXPLORE VENUES</span>
+        <h2>Find your perfect turf</h2>
+        <p>Choose a venue, gather your team and get playing.</p>
+      </div>
+
+      <span class="result-count">
+        {{ filteredTurfs.length }} turfs found
+      </span>
+    </div>
+
+
+    <!-- Filters -->
+    <section class="filter-panel">
+
+      <div class="search-field">
+        <span class="search-icon">⌕</span>
+        <input
+          type="text"
+          placeholder="Search turf, area or city..."
+          [(ngModel)]="searchTerm"
+        >
+      </div>
+
+      <div class="filter-field">
+        <label for="locationFilter">Location</label>
+        <select
+          id="locationFilter"
+          [(ngModel)]="selectedLocation"
+        >
+          <option *ngFor="let location of locations" [value]="location">
+            {{ location }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="sportFilter">Sport</label>
+        <select
+          id="sportFilter"
+          [(ngModel)]="selectedSport"
+        >
+          <option *ngFor="let sport of sports" [value]="sport">
+            {{ sport }}
+          </option>
+        </select>
+      </div>
+
+      <button class="clear-filters" (click)="clearFilters()">
+        Reset Filters
+      </button>
+
+    </section>
+
+
+    <!-- Results Toolbar -->
+    <div class="results-toolbar">
+      <div>
+        <h3>Available Turfs</h3>
+        <p>Explore venues that match your preferences.</p>
+      </div>
+
+      <div class="sort-field">
+        <label for="sortFilter">Sort by:</label>
+        <select id="sortFilter" [(ngModel)]="sortBy">
+          <option value="recommended">Recommended</option>
+          <option value="rating">Highest Rated</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+
+    <!-- Turf Cards -->
+    <section class="turf-grid">
+
+      <article
+        class="turf-card"
+        *ngFor="let turf of filteredTurfs; trackBy: trackByTurfId"
+      >
+
+        <div class="turf-image">
+          <img [src]="turf.image" [alt]="turf.name">
+
+          <span class="turf-badge" *ngIf="turf.badge">
+            {{ turf.badge }}
+          </span>
+
+          <button
+            type="button"
+            class="favorite-btn"
+            [class.favorited]="turf.isFavorite"
+            (click)="toggleFavorite(turf)"
+            [attr.aria-label]="turf.isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+          >
+            {{ turf.isFavorite ? '♥' : '♡' }}
+          </button>
+
+          <span class="availability" [class.unavailable]="!turf.available">
+            <span></span>
+            {{ turf.available ? 'Available' : 'Currently Unavailable' }}
+          </span>
+        </div>
+
+
+        <div class="turf-info">
+
+          <div class="turf-category">{{ turf.sport }}</div>
+
+          <h3>{{ turf.name }}</h3>
+
+          <p class="turf-location">
+            <span>⌖</span>
+            {{ turf.location }}, {{ turf.city }}
+          </p>
+
+          <div class="turf-rating">
+            <span class="star">★</span>
+            <strong>{{ turf.rating }}</strong>
+            <span>({{ turf.reviews }} reviews)</span>
+          </div>
+
+          <div class="amenities">
+            <span *ngFor="let amenity of turf.amenities">
+              {{ amenity }}
+            </span>
+          </div>
+
+          <div class="turf-card-footer">
+            <div class="turf-price">
+              <strong>₹{{ turf.price | number }}</strong>
+              <span>/ hour</span>
+            </div>
+
+            <a
+              [routerLink]="['/turf', turf.id]"
+              class="view-turf-btn"
+            >
+              View Details <span>→</span>
+            </a>
+          </div>
+
+        </div>
+      </article>
+
+    </section>
+
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredTurfs.length === 0">
+      <div class="empty-icon">⌕</div>
+      <h3>No turfs found</h3>
+      <p>Try changing your search or filters to discover more venues.</p>
+      <button (click)="clearFilters()">Clear All Filters</button>
+    </div>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer class="turfs-footer">
+    <div class="footer-inner">
+      <a routerLink="/" class="brand footer-brand">
+        <span class="brand-icon">C</span>
+        <span>Cricket<span class="brand-highlight">.io</span></span>
+      </a>
+
+      <p>Find your ground. Bring your team. Play your game.</p>
+
+      <span>© 2026 Cricket.io. All rights reserved.</span>
+    </div>
+  </footer>
+
+</div>
